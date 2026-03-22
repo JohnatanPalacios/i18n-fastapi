@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Test Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build native extension
+        run: |
+          pip install maturin
+          maturin develop
+
+      - name: Install test dependencies
+        run: pip install ".[dev]"
+
+      - name: Run tests
+        run: pytest tests/ -v
+
+  test-fallback:
+    name: Test Python fallback (no Rust)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies (no Rust build)
+        run: |
+          pip install fastapi orjson pydantic pytest pytest-asyncio httpx
+
+      - name: Run tests with Python fallback
+        run: PYTHONPATH=python pytest tests/ -v
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install ruff
+        run: pip install ruff
+
+      - name: Check formatting
+        run: ruff format --check python/ tests/
+
+      - name: Check linting
+        run: ruff check python/ tests/

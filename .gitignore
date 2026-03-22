@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Compiled extensions
+*.so
+*.dylib
+*.pyd
+*.dSYM/
+
+# Virtual environments
+.venv/
+venv/
+.env
+
+# Rust
+target/
+
+# Build artifacts
+*.whl
+
+# Caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# IDE / OS
+.cursor/
+.DS_Store
+
+# Personal docs
+JayP_Docs.md

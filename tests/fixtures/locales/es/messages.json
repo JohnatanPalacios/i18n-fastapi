@@ -1,0 +1,14 @@
+{
+  "greeting": "Hola {name}",
+  "farewell": "Adiós",
+  "items": {
+    "count": {
+      "zero": "Sin elementos",
+      "one": "{count} elemento",
+      "other": "{count} elementos"
+    }
+  },
+  "errors": {
+    "notFound": "Recurso {id} no encontrado"
+  }
+}

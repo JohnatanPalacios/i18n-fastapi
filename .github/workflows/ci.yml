@@ -30,10 +30,10 @@ jobs:
           maturin develop
 
       - name: Install test dependencies
-        run: pip install ".[dev]"
+        run: pip install pytest pytest-asyncio httpx fastapi orjson pydantic
 
       - name: Run tests
-        run: pytest tests/ -v
+        run: PYTHONPATH=python pytest tests/ -v
 
   test-fallback:
     name: Test Python fallback (no Rust)

@@ -1,6 +1,6 @@
 [project]
 name = "i18n-fastapi"
-version = "0.1.1"
+version = "0.1.2"
 description = "High-performance i18n for FastAPI with Rust-powered translation engine"
 authors = [{ name = "Johnatan Palacios Londoño", email = "johnatan.palacios@utp.edu.co" }]
 readme = "README.md"

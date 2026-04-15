@@ -27,13 +27,14 @@ jobs:
       - name: Build native extension
         run: |
           pip install maturin
-          maturin develop
+          maturin build --out dist
+          pip install dist/*.whl
 
       - name: Install test dependencies
         run: pip install pytest pytest-asyncio httpx fastapi orjson pydantic
 
       - name: Run tests
-        run: PYTHONPATH=python pytest tests/ -v
+        run: pytest tests/ -v
 
   test-fallback:
     name: Test Python fallback (no Rust)
